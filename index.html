@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweetkneads Treats | Your cravings. Your preferences. Our promise of quality.</title>
+    
+    <!-- Preconnect & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           CSS Variables & Base Setup
+           ========================================================================== */
+        :root {
+            --primary-pink: #db2777;
+            --deep-rose: #9d174d;
+            --soft-pink: #fbcfe8;
+            --blush-bg: #fff0f5;
+            
+            --glass-bg: rgba(255, 255, 255, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 1);
+            --glass-shadow: 0 12px 40px 0 rgba(157, 23, 77, 0.08);
+            --glass-shadow-hover: 0 20px 50px 0 rgba(157, 23, 77, 0.15);
+            
+            --text-main: #2a030d;
+            --text-muted: #6b1538;
+            
+            --whatsapp-green: #25d366;
+            --transition-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--blush-bg);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ==========================================================================
+           Typography Utilities
+           ========================================================================== */
+        h1, h2, h3, .brand-logo {
+            font-family: 'Playfair Display', serif;
+        }
+
+        h2.section-title {
+            position: relative;
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            color: var(--deep-rose);
+            margin-bottom: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            z-index: 1;
+        }
+
+        /* ==========================================================================
+           Ambient Background
+           ========================================================================== */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffffff 100%);
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.5;
+            animation: float 20s infinite ease-in-out alternate;
+            will-change: transform;
+        }
+
+        .blob-1 { width: 600px; height: 600px; background: #fbcfe8; top: -150px; left: -150px; }
+        .blob-2 { width: 700px; height: 700px; background: #fda4af; bottom: -200px; right: -100px; animation-delay: -5s; animation-duration: 25s; }
+        .blob-3 { width: 500px; height: 500px; background: #f472b6; top: 30%; left: 40%; transform: translate(-50%, -50%); animation-delay: -10s; opacity: 0.3; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(5vw, 5vh) scale(1.1) rotate(10deg); }
+            100% { transform: translate(-3vw, -5vh) scale(0.95) rotate(-5deg); }
+        }
+
+        /* ==========================================================================
+           Glassmorphism & Layout Utilities
+           ========================================================================== */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            box-shadow: var(--glass-shadow), var(--glass-highlight);
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        /* ==========================================================================
+           Header & Navigation
+           ========================================================================== */
+        header {
+            position: sticky;
+            top: 1.5rem;
+            z-index: 1000;
+            margin-bottom: 3rem;
+        }
+
+        .nav-glass {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--deep-rose);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo:hover { opacity: 0.8; }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 1.05rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-pink);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover { color: var(--primary-pink); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 30px;
+            height: 20px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--deep-rose);
+            position: absolute;
+            transition: var(--transition-bounce);
+            border-radius: 2px;
+        }
+
+        .mobile-menu-btn span:nth-child(1) { top: 0; }
+        .mobile-menu-btn span:nth-child(2) { top: 9px; }
+        .mobile-menu-btn span:nth-child(3) { top: 18px; }
+        .mobile-menu-btn.active span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+        .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
+
+        /* ==========================================================================
+           Buttons
+           ========================================================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 2.25rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: var(--transition-bounce);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before { left: 100%; }
+        .btn:active { transform: scale(0.97); }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--deep-rose) 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(219, 39, 119, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-4px); box-shadow: 0 12px 25px rgba(219, 39, 119, 0.4); }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25d366 0%, #1da851 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+        .btn-whatsapp:hover { transform: translateY(-4px); box-shadow: 0 12px 25px rgba(37, 211, 102, 0.4); }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--deep-rose);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .btn-secondary:hover { background: white; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+
+        /* ==========================================================================
+           Hero Section
+           ========================================================================== */
+        .hero {
+            padding: 3rem 0 6rem;
+            text-align: center;
+            min-height: calc(100vh - 120px);
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-card {
+            padding: 5rem 3rem;
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden; /* Contains the self-drawing background */
+        }
+
+        /* Hero Self-Drawing SVG */
+        .hero-drawing-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .hero-drawing-bg path {
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 2000;
+            stroke-dashoffset: 2000;
+        }
+
+        .hero-drawing-bg .line-1 { stroke: var(--primary-pink); }
+        .hero-drawing-bg .line-2 { stroke: var(--soft-pink); stroke-width: 6; }
+
+        .reveal.active .hero-drawing-bg path {
+            animation: drawPath 3.5s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.4s;
+        }
+
+        .hero-card > *:not(.hero-drawing-bg) {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 { font-size: clamp(3rem, 6vw, 4.5rem); color: var(--deep-rose); margin-bottom: 1rem; line-height: 1.1; letter-spacing: -0.02em; }
+        .hero .tagline { font-style: italic; color: var(--primary-pink); font-size: clamp(1.25rem, 2.5vw, 1.65rem); font-weight: 600; margin-bottom: 1.5rem; font-family: 'Playfair Display', serif; }
+        .hero p:not(.tagline) { max-width: 650px; margin: 0 auto 3rem; font-size: 1.15rem; color: var(--text-muted); font-weight: 400; }
+        .cta-group { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+
+        /* ==========================================================================
+           Self-Drawing Section Underlines
+           ========================================================================== */
+        .title-underline-svg {
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 25px;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .title-underline-svg path {
+            fill: none;
+            stroke: var(--primary-pink);
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            transition: stroke-dashoffset 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .reveal.active .title-underline-svg path {
+            stroke-dashoffset: 0;
+            transition-delay: 0.3s;
+        }
+
+        /* ==========================================================================
+           About Section
+           ========================================================================== */
+        .about-content { padding: 4rem; text-align: center; max-width: 900px; margin: 0 auto; }
+        .about-content p { font-size: clamp(1.15rem, 2vw, 1.35rem); color: var(--text-muted); line-height: 1.9; }
+
+        /* ==========================================================================
+           Treats Section & Hover Draw Effect
+           ========================================================================== */
+        .treats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .treat-card {
+            padding: 2.5rem 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Interactive Self-Drawing Circle on Hover */
+        .treat-hover-svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-90deg); /* Start draw from top */
+            width: 90%;
+            height: 90%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .treat-hover-svg circle {
+            fill: none;
+            stroke: var(--primary-pink);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+        }
+
+        .treat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--glass-shadow-hover), var(--glass-highlight);
+            background: rgba(255, 255, 255, 0.7);
+            border-color: rgba(255,255,255,1);
+        }
+
+        .treat-card:hover .treat-hover-svg { opacity: 0.3; }
+        .treat-card:hover .treat-hover-svg circle {
+            animation: drawPath 0.75s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .treat-card h3 { font-size: 1.4rem; color: var(--deep-rose); font-weight: 600; pointer-events: none; }
+
+        /* Featured Section */
+        .featured-card {
+            padding: 4rem 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(253, 227, 240, 0.6) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+        .featured-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at top right, rgba(251, 207, 232, 0.4) 0%, transparent 60%); z-index: 0;
+        }
+        .featured-card > * { position: relative; z-index: 1; }
+        .featured-badge { background: linear-gradient(135deg, var(--soft-pink), var(--primary-pink)); color: var(--deep-rose); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; padding: 0.5rem 1.5rem; border-radius: 9999px; display: inline-block; margin-bottom: 1.5rem; box-shadow: 0 4px 10px rgba(219, 39, 119, 0.15); }
+        .featured-card h2 { color: var(--deep-rose); font-size: clamp(2rem, 3vw, 2.5rem); margin-bottom: 1.25rem; }
+        .featured-card p { max-width: 650px; margin: 0 auto 2.5rem; color: var(--text-muted); font-size: 1.15rem; }
+
+        /* ==========================================================================
+           Why Us Section
+           ========================================================================== */
+        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        .why-card { padding: 3rem 2.5rem; text-align: left; display: flex; flex-direction: column; gap: 1rem; }
+        .why-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.65); }
+        .why-card h3 { font-size: 1.5rem; color: var(--deep-rose); display: flex; align-items: center; gap: 0.75rem; }
+        .why-card p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; }
+
+        /* ==========================================================================
+           Direct WhatsApp Order Form Section
+           ========================================================================== */
+        .order-box { max-width: 700px; margin: 0 auto; padding: 4rem 3.5rem; text-align: left; }
+        .form-group { margin-bottom: 1.75rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.75rem; color: var(--deep-rose); font-size: 1.05rem; }
+        .form-control { width: 100%; padding: 1rem 1.25rem; border-radius: 16px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.8); box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); font-family: inherit; font-size: 1.05rem; color: var(--text-main); outline: none; transition: var(--transition-smooth); }
+        .form-control::placeholder { color: rgba(131, 24, 67, 0.4); }
+        .form-control:focus { border-color: var(--primary-pink); background: #ffffff; box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.15), inset 0 2px 4px rgba(0,0,0,0.02); }
+        textarea.form-control { resize: vertical; min-height: 120px; }
+
+        /* ==========================================================================
+           Footer
+           ========================================================================== */
+        footer { padding: 2rem 0 4rem; text-align: center; }
+        .footer-card { padding: 3.5rem 2rem; }
+        footer .logo { font-size: 2.25rem; display: inline-block; margin-bottom: 1rem; }
+        footer p { color: var(--text-muted); font-size: 1.1rem; }
+        .footer-contact { margin-top: 1.5rem; font-size: 1rem !important; font-weight: 500; opacity: 0.9; }
+
+        /* ==========================================================================
+           Animations 
+           ========================================================================== */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        @keyframes drawPath { to { stroke-dashoffset: 0; } }
+
+        /* ==========================================================================
+           Media Queries & Responsiveness
+           ========================================================================== */
+        @media (max-width: 900px) {
+            section { padding: 4rem 0; }
+            .hero-card { padding: 4rem 2rem; }
+            .about-content, .order-box, .featured-card { padding: 3rem 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-glass { padding: 1rem 1.5rem; }
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                position: absolute; top: calc(100% + 0.5rem); left: 0; width: 100%;
+                background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+                border: 1px solid var(--glass-border); border-radius: 20px;
+                box-shadow: var(--glass-shadow); flex-direction: column; gap: 0;
+                padding: 1rem 0; opacity: 0; visibility: hidden; transform: translateY(-10px);
+                transition: var(--transition-smooth);
+            }
+            .nav-links.active { opacity: 1; visibility: visible; transform: translateY(0); }
+            .nav-links li { width: 100%; text-align: center; }
+            .nav-links a { display: block; padding: 1rem 2rem; font-size: 1.1rem; }
+            .nav-links a::after { display: none; }
+            .cta-group { flex-direction: column; }
+            .btn { width: 100%; }
+            .hero { min-height: auto; padding: 2rem 0 4rem; }
+            .order-box { padding: 2.5rem 1.5rem; }
+        }
+
+        /* Accessibility: Reduce Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .reveal { opacity: 1; transform: none; }
+            .ambient-bg { background: var(--blush-bg); }
+            .blob { display: none; }
+            .hero-drawing-bg path, .title-underline-svg path, .treat-hover-svg circle { 
+                stroke-dashoffset: 0 !important; /* Immediately display drawings */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Premium Liquid Glass Ambient Background Spheres -->
+    <div class="ambient-bg" aria-hidden="true">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="container">
+        <nav class="glass-card nav-glass">
+            <a href="#" class="logo brand-logo">Sweetkneads</a>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation" id="mobileMenuBtn">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#treats">Treats</a></li>
+                <li><a href="#why-us">Why Us</a></li>
+                <li><a href="#order">Order</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="glass-card hero-card reveal">
+                <!-- Advanced Self-Drawing Hero Background -->
+                <svg class="hero-drawing-bg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                    <path class="line-1" d="M -100,250 C 150,50 350,450 500,250 C 650,50 850,450 1100,250" />
+                    <path class="line-2" d="M -50,250 C 200,100 300,400 500,250 C 700,100 800,400 1050,250" style="animation-delay: 0.6s;" />
+                </svg>
+
+                <h1 class="brand-logo">Sweetkneads Treats</h1>
+                <p class="tagline">Your cravings. Your preferences. Our promise of quality.</p>
+                <p>Bringing your cravings to reality with sumptuous cakes and pastries at affordable prices.</p>
+                <div class="cta-group">
+                    <a href="#treats" class="btn btn-secondary">Explore Our Treats</a>
+                    <a href="https://wa.me/2347082327640?text=Hello%20Sweetkneads!%20I%20would%20like%20to%20place%20an%20order." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+                        <span>💬</span> Order on WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="section-title reveal">
+                About Sweetkneads
+                <!-- Self-drawing underline -->
+                <svg class="title-underline-svg" viewBox="0 0 300 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 15,15 Q 150,30 285,10" />
+                </svg>
+            </h2>
+            <div class="glass-card about-content reveal delay-1">
+                <p>At Sweetkneads Treats, every crumb and bite tells a story with a lasting impression. We create delicious cakes and pastries made to satisfy your cravings, whether you're looking for a quick treat or something special for an occasion.</p>
+            </div>
+        </section>
+
+        <!-- Our Treats Section -->
+        <section id="treats">
+            <h2 class="section-title reveal">
+                Our Treats
+                <!-- Self-drawing underline -->
+                <svg class="title-underline-svg" viewBox="0 0 300 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 15,15 Q 150,30 285,10" />
+                </svg>
+            </h2>
+            <div class="treats-grid">
+                <!-- Cards with Self-Drawing Hover SVGs -->
+                <div class="glass-card treat-card reveal">
+                    <svg class="treat-hover-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" /></svg>
+                    <h3>🥐 Puff Puff</h3>
+                </div>
+                <div class="glass-card treat-card reveal delay-1">
+                    <svg class="treat-hover-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" /></svg>
+                    <h3>🍩 Buns</h3>
+                </div>
+                <div class="glass-card treat-card reveal delay-2">
+                    <svg class="treat-hover-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" /></svg>
+                    <h3>🧁 Donuts</h3>
+                </div>
+                <div class="glass-card treat-card reveal">
+                    <svg class="treat-hover-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" /></svg>
+                    <h3>🥧 Pie</h3>
+                </div>
+                <div class="glass-card treat-card reveal delay-1">
+                    <svg class="treat-hover-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" /></svg>
+                    <h3>💰 Money Bag</h3>
+                </div>
+                <div class="glass-card treat-card reveal delay-2">
+                    <svg class="treat-hover-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" /></svg>
+                    <h3>📐 Samosa</h3>
+                </div>
+                <div class="glass-card treat-card reveal">
+                    <svg class="treat-hover-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" /></svg>
+                    <h3>🥖 Spring Roll</h3>
+                </div>
+                <div class="glass-card treat-card reveal delay-1">
+                    <svg class="treat-hover-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" /></svg>
+                    <h3>✨ Chin Chin</h3>
+                </div>
+                <div class="glass-card treat-card reveal delay-2">
+                    <svg class="treat-hover-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" /></svg>
+                    <h3>🐟 Fish Roll</h3>
+                </div>
+                <div class="glass-card treat-card reveal">
+                    <svg class="treat-hover-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" /></svg>
+                    <h3>🎂 Cakes</h3>
+                </div>
+                <div class="glass-card treat-card reveal delay-1">
+                    <svg class="treat-hover-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" /></svg>
+                    <h3>💖 And More...</h3>
+                </div>
+            </div>
+
+            <!-- Featured Section -->
+            <div class="glass-card featured-card reveal">
+                <span class="featured-badge">Always Available</span>
+                <h2>Featured: Crunchy Chin Chin</h2>
+                <p>Our crunchy chin chin is available for everyday pickup and delivery nationwide. Whenever the craving hits, Sweetkneads has you covered.</p>
+                <a href="https://wa.me/2347082327640?text=Hello%20Sweetkneads!%20I%20want%20to%20order%20the%20Crunchy%20Chin%20Chin." target="_blank" rel="noopener noreferrer" class="btn btn-primary">Order Chin Chin Now</a>
+            </div>
+        </section>
+
+        <!-- Why Sweetkneads Section -->
+        <section id="why-us">
+            <h2 class="section-title reveal">
+                Why Sweetkneads?
+                <!-- Self-drawing underline -->
+                <svg class="title-underline-svg" viewBox="0 0 300 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 15,15 Q 150,30 285,10" />
+                </svg>
+            </h2>
+            <div class="why-grid">
+                <div class="glass-card why-card reveal">
+                    <h3>✨ Quality you can trust</h3>
+                    <p>At Sweetkneads Treats, quality and trust come first. Every treat is made with carefully selected, clean, halal ingredients, giving you something you can enjoy with confidence.</p>
+                </div>
+                <div class="glass-card why-card reveal delay-1">
+                    <h3>💖 Made to your preference</h3>
+                    <p>We believe everyone deserves a treat that suits them. That's why we listen to our customers and accommodate their preferences whenever possible.</p>
+                </div>
+                <div class="glass-card why-card reveal delay-2">
+                    <h3>🥐 Made with care</h3>
+                    <p>From our crunchy chin chin to our other pastries, we pay attention to the ingredients and preparation process—not just the final taste.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Direct WhatsApp Order Section -->
+        <section id="order">
+            <h2 class="section-title reveal">
+                Direct WhatsApp Order
+                <!-- Self-drawing underline -->
+                <svg class="title-underline-svg" viewBox="0 0 300 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 15,15 Q 150,30 285,10" />
+                </svg>
+            </h2>
+            <div class="glass-card order-box reveal delay-1">
+                <form id="whatsappForm" onsubmit="sendToWhatsApp(event)">
+                    <div class="form-group">
+                        <label for="treatSelect">What treat would you like?</label>
+                        <input type="text" id="treatSelect" class="form-control" placeholder="e.g., Crunchy Chin Chin, Cake, Samosa..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="budget">Your Budget / Quantity</label>
+                        <input type="text" id="budget" class="form-control" placeholder="e.g., ₦5,000 or 2 Packs" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Special Preferences / Notes</label>
+                        <textarea id="notes" class="form-control" placeholder="Tell us any custom preferences..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-whatsapp" style="width: 100%; font-size: 1.1rem; padding: 1.1rem;">
+                        Send Order Directly to WhatsApp 📲
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="container">
+        <div class="glass-card footer-card reveal">
+            <a href="#" class="logo brand-logo">Sweetkneads Treats</a>
+            <p>Your cravings. Your preferences. Our promise of quality.</p>
+            <p class="footer-contact">📞 +234 708 232 7640 | 📧 bakresekeenat@gmail.com</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        /* WhatsApp Order Function (Functionality Preserved) */
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+            const treat = document.getElementById('treatSelect').value;
+            const budget = document.getElementById('budget').value;
+            const notes = document.getElementById('notes').value;
+            const phoneNumber = "2347082327640";
+
+            let message = `Hello Sweetkneads Treats! 👋\n\nI would like to place an order:\n- *Treat:* ${treat}\n- *Budget/Quantity:* ${budget}`;
+            if (notes.trim() !== "") {
+                message += `\n- *Preferences/Notes:* ${notes}`;
+            }
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+        }
+
+        /* Mobile Menu Toggle Logic */
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const navItems = navLinks.querySelectorAll('a');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when a link is clicked
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        /* Premium Scroll Reveal & SVG Draw Animation using IntersectionObserver */
+        document.addEventListener('DOMContentLoaded', () => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            
+            if (!prefersReducedMotion) {
+                const revealElements = document.querySelectorAll('.reveal');
+                
+                const revealObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            observer.unobserve(entry.target); // Reveal & draw only once
+                        }
+                    });
+                }, {
+                    root: null,
+                    threshold: 0.15,
+                    rootMargin: "0px 0px -50px 0px"
+                });
+
+                revealElements.forEach(el => revealObserver.observe(el));
+            }
+        });
+    </script>
+</body>
+</html>
